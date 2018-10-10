@@ -46,11 +46,57 @@ def selectsort(s):
         for j in range(i, len(s)):
             if s[j] < s[min]:
                 min = j
-                print('i=',i,'j=',j,'min=',min)
+                print('i=', i, 'j=', j, 'min=', min)
                 c += 1
         if i != min:
             s[i], s[min] = s[min], s[i]
     print(c)
+
+
+def mergesort(s):
+    """
+    归并排序
+    :param s:   要排序的数组
+    :return :
+
+    for i in range(len(s)-1)
+        找出元素s[i]….s[len(s)]中的最小元素
+        与s[i]交换
+
+    """
+
+    def sort(a):
+        n = len(a)
+        if n <=1:
+            return a
+        mid = n // 2
+        print('<<<<mid=',mid)
+        left = sort(a[:mid])
+        print('>>>>mid=', mid)
+        right = sort(a[mid:])
+        return merge(left, right)
+
+    def merge(l,r):
+        left, right = 0, 0
+        nl = len(l)
+        nr = len(r)
+        result = []
+        while left < nl and right < nr:
+            if l[left] <= r[right]:
+                result.append(l[left])
+                left += 1
+            else:
+                result.append(r[right])
+                right += 1
+            print(l, r)
+        result += l[left:]
+        result += r[right:]
+        print(l, r, result)
+        return result
+
+    print('++++', s)
+    return sort(s)
+
 
 def bubblesort(s):
     """
@@ -65,10 +111,10 @@ def bubblesort(s):
     """
     c = 0
     for i in range(len(s) - 1):
-        for j in range(1,len(s)-i):
-            if s[j-1] > s[j]:
+        for j in range(1, len(s) - i):
+            if s[j - 1] > s[j]:
                 print('j-1=', j - 1, 'j=', j)
-                s[j-1], s[j] = s[j], s[j-1]
+                s[j - 1], s[j] = s[j], s[j - 1]
                 print(s)
                 c += 1
         print(s)
@@ -85,7 +131,7 @@ def quicksort(s, start, end):
 
 
     """
-    print('<<<<',s,'start=',start,'end=',end)
+    print('<<<<', s, 'start=', start, 'end=', end)
     if start >= end:
         return
     c = 0
@@ -103,11 +149,12 @@ def quicksort(s, start, end):
         print('%4d %s low=%d high=%d ' % (c, s, low, high))
     s[low] = key
 
-    print('%4d %s low=%d high=%d ' % (c,s,low,high))
-    print('>>>>',s)
-    quicksort(s, start, low-1)
-    quicksort(s,low+1,end)
+    print('%4d %s low=%d high=%d ' % (c, s, low, high))
     print('>>>>', s)
+    quicksort(s, start, low - 1)
+    quicksort(s, low + 1, end)
+    print('>>>>', s)
+
 
 def quicksort2(s, start, end):
     """
@@ -133,18 +180,49 @@ def quicksort2(s, start, end):
         while low < high and s[low] <= key:
             low += 1
         if low < high:
-            print('1      high=',high,'s[high]=',s[high],'low=',low,'s[low]=',s[low])
+            # print('1      high=',high,'s[high]=',s[high],'low=',low,'s[low]=',s[low])
             s[high], s[low] = s[low], s[high]
-            print('2      high=',high,'s[high]=',s[high],'low=',low,'s[low]=',s[low])
-        print('%4d %s low=%d high=%d ' % (c, s, low, high))
-    print('3      start=', start, 'low=', low, 's[low]=', s[low])
-    s[start],s[low] = s[low],s[start]
-    print('4      start=', start, 'low=', low, 's[low]=', s[low])
-    print('%4d %s low=%d high=%d ' % (c,s,low,high))
+            # print('2      high=',high,'s[high]=',s[high],'low=',low,'s[low]=',s[low])
+        # print('%4d %s low=%d high=%d ' % (c, s, low, high))
+    # print('3      start=', start, 'low=', low, 's[low]=', s[low])
+    s[start], s[low] = s[low], s[start]
+    # print('4      start=', start, 'low=', low, 's[low]=', s[low])
+    # print('%4d %s low=%d high=%d ' % (c,s,low,high))
 
-    quicksort2(s, start, low-1)
-    quicksort2(s,low+1,end)
+    quicksort2(s, start, low - 1)
+    quicksort2(s, low + 1, end)
 
+
+def quicksort3(s, start, end):
+    """
+    快速排序
+    :param end: 结束下标
+    :param start: 起始下标
+    :param s:   要排序的数组
+    :return :
+
+
+    """
+
+    if start >= end:
+        return
+    print('<<<<', s, 'start=', start, 'end=', end)
+    c = 0
+    low = start
+    high = end
+    key = s[start]
+    for j in range(start + 1, end + 1):
+        if s[j] < key:
+            low += 1
+            s[j], s[low] = s[low], s[j]
+            print('+-+-', s)
+    # print('3      start=', start, 'low=', low, 's[low]=', s[low])
+    s[start], s[low] = s[low], s[start]
+    # print('4      start=', start, 'low=', low, 's[low]=', s[low])
+    print('%4d %s low=%d high=%d ' % (c, s, low, high))
+
+    quicksort3(s, start, low - 1)
+    quicksort3(s, low + 1, end)
 
 
 def test_sortinsert(s):
@@ -184,12 +262,20 @@ if __name__ == '__main__':
     test_sortbubble(ints1)
     test_sortbubble(ints2)
 
-    intsrand = [random.randint(0,100) for i in range(20)]
+    intsrand = [random.randint(0, 100) for i in range(20)]
     intsrand2 = copy.copy(intsrand)
+    intsrand3 = copy.copy(intsrand)
+    intsrand4 = copy.copy(intsrand)
     # print(intsrand)
-    quicksort(intsrand,0,len(intsrand)-1)
+    quicksort(intsrand, 0, len(intsrand) - 1)
     for i in range(20):
         print('//////////////////////')
-
-    quicksort2(intsrand2,0,len(intsrand2)-1)
+    quicksort2(intsrand2, 0, len(intsrand2) - 1)
+    for i in range(20):
+        print('//////////////////////')
+    quicksort3(intsrand3, 0, len(intsrand3) - 1)
     # print(intsrand)
+    for i in range(20):
+        print('//////////////////////')
+    newstr = mergesort(intsrand4)
+    print(newstr)
