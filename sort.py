@@ -7,7 +7,7 @@ import copy
 import random
 
 
-def insertsort(s):
+def insertsort(s, debug=1):
     """
     插入排序
     :param s:   要排序的数组
@@ -22,14 +22,74 @@ def insertsort(s):
         j = i
         while j > 0 and s[j - 1] > x:
             s[j] = s[j - 1]
-            print('====', s)
+            print('====', s) if debug else None
             j -= 1
             c += 1
         s[j] = x
+    print(c) if debug else None
+
+
+def shellsort(s, debug=1):
+    """
+    希尔排序
+    :param s:   要排序的数组
+    :return s:  排序后的数组
+
+
+    """
+    c = 0
+    n = len(s)
+    gap = n // 2
+    while gap > 0:
+        for j in range(gap, n):
+            i = j
+            while i > 0:
+                if s[i] < s[i - gap]:
+                    s[i], s[i - gap] = s[i - gap], s[i]
+                    i -= gap
+                    print('====', s, 'i=', i, 'gap=', gap) if debug else None
+                    c += 1
+                else:
+                    break
+
+        gap //= 2
+        print('=+=+', s) if debug else None
     print(c)
 
 
-def selectsort(s):
+def shellsort2(s, debug=1):
+    """
+    希尔排序
+    :param s:   要排序的数组
+    :return s:  排序后的数组
+
+    c++数据结构与算法 第四版中提出的
+    gap=3*gap+1
+    """
+    c = 0
+    n = len(s)
+    gap = 1
+    gaps = []
+    while gap < n:
+        gaps.insert(0, gap)
+        gap = 3 * gap + 1
+    for g in range(len(gaps)):
+        gap = gaps[g]
+        for j in range(gap, n):
+            i = j
+            while i > 0:
+                if s[i] < s[i - gap]:
+                    s[i], s[i - gap] = s[i - gap], s[i]
+                    i -= gap
+                    print('|===', s, 'i=', i, 'gap=', gap) if debug else None
+                    c += 1
+                else:
+                    break
+        print('=+=+', s) if debug else None
+    print(c)
+
+
+def selectsort(s, debug=1):
     """
     选择排序
     :param s:   要排序的数组
@@ -46,14 +106,14 @@ def selectsort(s):
         for j in range(i, len(s)):
             if s[j] < s[min]:
                 min = j
-                print('i=', i, 'j=', j, 'min=', min)
+                print('i=', i, 'j=', j, 'min=', min) if debug else None
                 c += 1
         if i != min:
             s[i], s[min] = s[min], s[i]
     print(c)
 
 
-def mergesort(s):
+def mergesort(s, debug=1):
     """
     归并排序
     :param s:   要排序的数组
@@ -67,16 +127,16 @@ def mergesort(s):
 
     def sort(a):
         n = len(a)
-        if n <=1:
+        if n <= 1:
             return a
         mid = n // 2
-        print('<<<<mid=',mid)
+        print('<<<<mid=', mid) if debug else None
         left = sort(a[:mid])
-        print('>>>>mid=', mid)
+        print('>>>>mid=', mid) if debug else None
         right = sort(a[mid:])
         return merge(left, right)
 
-    def merge(l,r):
+    def merge(l, r):
         left, right = 0, 0
         nl = len(l)
         nr = len(r)
@@ -88,17 +148,16 @@ def mergesort(s):
             else:
                 result.append(r[right])
                 right += 1
-            print(l, r)
+            print(l, r) if debug else None
         result += l[left:]
         result += r[right:]
-        print(l, r, result)
+        print(l, r, result) if debug else None
         return result
-
-    print('++++', s)
+    print('++++', s) if debug else None
     return sort(s)
 
 
-def bubblesort(s):
+def bubblesort(s, debug=1):
     """
     冒泡排序
     :param s:   要排序的数组
@@ -113,15 +172,15 @@ def bubblesort(s):
     for i in range(len(s) - 1):
         for j in range(1, len(s) - i):
             if s[j - 1] > s[j]:
-                print('j-1=', j - 1, 'j=', j)
+                print('j-1=', j - 1, 'j=', j) if debug else None
                 s[j - 1], s[j] = s[j], s[j - 1]
-                print(s)
+                print(s) if debug else None
                 c += 1
-        print(s)
+        print(s) if debug else None
     print(c)
 
 
-def quicksort(s, start, end):
+def quicksort(s, start, end, debug=1):
     """
     快速排序
     :param end: 结束下标
@@ -131,7 +190,7 @@ def quicksort(s, start, end):
 
 
     """
-    print('<<<<', s, 'start=', start, 'end=', end)
+    print('<<<<', s, 'start=', start, 'end=', end) if debug else None
     if start >= end:
         return
     c = 0
@@ -142,21 +201,21 @@ def quicksort(s, start, end):
         while low < high and s[high] >= key:
             high -= 1
         s[low] = s[high]
-        print('%4d %s low=%d high=%d ' % (c, s, low, high))
+        print('%4d %s low=%d high=%d ' % (c, s, low, high)) if debug else None
         while low < high and s[low] <= key:
             low += 1
         s[high] = s[low]
-        print('%4d %s low=%d high=%d ' % (c, s, low, high))
+        print('%4d %s low=%d high=%d ' % (c, s, low, high)) if debug else None
     s[low] = key
 
-    print('%4d %s low=%d high=%d ' % (c, s, low, high))
-    print('>>>>', s)
+    print('%4d %s low=%d high=%d ' % (c, s, low, high)) if debug else None
+    print('>>>>', s) if debug else None
     quicksort(s, start, low - 1)
     quicksort(s, low + 1, end)
-    print('>>>>', s)
+    print('>>>>', s) if debug else None
 
 
-def quicksort2(s, start, end):
+def quicksort2(s, start, end, debug=1):
     """
     快速排序
     :param end: 结束下标
@@ -169,7 +228,7 @@ def quicksort2(s, start, end):
 
     if start >= end:
         return
-    print('<<<<', s, 'start=', start, 'end=', end)
+    print('<<<<', s, 'start=', start, 'end=', end) if debug else None
     c = 0
     low = start
     high = end
@@ -180,20 +239,20 @@ def quicksort2(s, start, end):
         while low < high and s[low] <= key:
             low += 1
         if low < high:
-            # print('1      high=',high,'s[high]=',s[high],'low=',low,'s[low]=',s[low])
+            print('1      high=', high, 's[high]=', s[high], 'low=', low, 's[low]=', s[low]) if debug else None
             s[high], s[low] = s[low], s[high]
-            # print('2      high=',high,'s[high]=',s[high],'low=',low,'s[low]=',s[low])
-        # print('%4d %s low=%d high=%d ' % (c, s, low, high))
-    # print('3      start=', start, 'low=', low, 's[low]=', s[low])
+            print('2      high=', high, 's[high]=', s[high], 'low=', low, 's[low]=', s[low]) if debug else None
+        print('%4d %s low=%d high=%d ' % (c, s, low, high)) if debug else None
+    print('3      start=', start, 'low=', low, 's[low]=', s[low]) if debug else None
     s[start], s[low] = s[low], s[start]
-    # print('4      start=', start, 'low=', low, 's[low]=', s[low])
-    # print('%4d %s low=%d high=%d ' % (c,s,low,high))
+    print('4      start=', start, 'low=', low, 's[low]=', s[low]) if debug else None
+    print('%4d %s low=%d high=%d ' % (c, s, low, high)) if debug else None
 
     quicksort2(s, start, low - 1)
     quicksort2(s, low + 1, end)
 
 
-def quicksort3(s, start, end):
+def quicksort3(s, start, end, debug=1):
     """
     快速排序
     :param end: 结束下标
@@ -206,7 +265,7 @@ def quicksort3(s, start, end):
 
     if start >= end:
         return
-    print('<<<<', s, 'start=', start, 'end=', end)
+    print('<<<<', s, 'start=', start, 'end=', end) if debug else None
     c = 0
     low = start
     high = end
@@ -215,11 +274,12 @@ def quicksort3(s, start, end):
         if s[j] < key:
             low += 1
             s[j], s[low] = s[low], s[j]
-            print('+-+-', s)
-    # print('3      start=', start, 'low=', low, 's[low]=', s[low])
+            if debug:
+                print('+-+-', s)
+    print('3      start=', start, 'low=', low, 's[low]=', s[low]) if debug else None
     s[start], s[low] = s[low], s[start]
-    # print('4      start=', start, 'low=', low, 's[low]=', s[low])
-    print('%4d %s low=%d high=%d ' % (c, s, low, high))
+    print('4      start=', start, 'low=', low, 's[low]=', s[low]) if debug else None
+    print('%4d %s low=%d high=%d ' % (c, s, low, high)) if debug else None
 
     quicksort3(s, start, low - 1)
     quicksort3(s, low + 1, end)
@@ -262,20 +322,32 @@ if __name__ == '__main__':
     test_sortbubble(ints1)
     test_sortbubble(ints2)
 
-    intsrand = [random.randint(0, 100) for i in range(20)]
+    intsrand = [random.randint(0, 1000) for i in range(10)]
     intsrand2 = copy.copy(intsrand)
     intsrand3 = copy.copy(intsrand)
     intsrand4 = copy.copy(intsrand)
+    intsrand5 = copy.copy(intsrand)
+    intsrand6 = copy.copy(intsrand)
     # print(intsrand)
     quicksort(intsrand, 0, len(intsrand) - 1)
-    for i in range(20):
+    for i in range(5):
         print('//////////////////////')
     quicksort2(intsrand2, 0, len(intsrand2) - 1)
-    for i in range(20):
+    for i in range(5):
         print('//////////////////////')
     quicksort3(intsrand3, 0, len(intsrand3) - 1)
     # print(intsrand)
-    for i in range(20):
+    for i in range(5):
         print('//////////////////////')
     newstr = mergesort(intsrand4)
     print(newstr)
+    intsrand.sort()
+
+    for i in range(5):
+        print('//////////////////////')
+    shellsort(intsrand5)
+    print(intsrand5)
+    for i in range(5):
+        print('//////////////////////')
+    shellsort2(intsrand6,debug=0)
+    print(intsrand6)
