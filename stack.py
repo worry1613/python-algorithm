@@ -7,6 +7,7 @@
 class StackError(ValueError):
     pass
 
+
 class Stack():
     def __init__(self):
         self.__list = []
@@ -66,19 +67,46 @@ if __name__ == '__main__':
     print(sempty.is_empty())
     try:
         print(sempty.top())
-    except Exception as e :
+    except Exception as e:
         print(e)
 
     try:
         print(sempty.top())
-    except Exception as e :
+    except Exception as e:
         print(e)
 
     for j in range(9):
-        sempty.push(j+2)
+        sempty.push(j + 2)
     sempty.traverse(print)
     sempty.clear()
     print(sempty.is_empty())
 
 
+    def check_parens(s):
+        """检查s中插号是否匹配"""
+        parens = '()[]{}'
+        open_par = '([{'
+        close_par = {')': '(', ']': '[', '}': '{'}
+        st = Stack()
+        slen = len(s)
+        i = 0
+        for j in range(slen):
+            if s[j] not in parens:
+                j += 1
+            elif s[j] in open_par:
+                st.push((s[j], j))
+            else:
+                top = st.top()
+                if close_par[s[j]] == top[0]:
+                    print('插号匹配成功，第%d个和%d, %s%s!!' % (top[1], j, top[0], s[j]))
+                    st.pop()
+                else:
+                    print('第%d个字符没有匹配插号，%s' % (j, s[j]))
+                    # st.pop()
+        while not st.is_empty():
+            print('第%d个字符没有匹配插号，%s' % (st.top()[1], st.top()[0]))
+            st.pop()
 
+
+    text = """{[}"""
+    check_parens(text)
