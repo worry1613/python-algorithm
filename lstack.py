@@ -9,6 +9,7 @@ from stack import StackError
 
 class LStack():
     """链表实现栈"""
+
     def __init__(self):
         self.__head = None
 
@@ -25,12 +26,7 @@ class LStack():
 
     def push(self, elem):
         """压栈"""
-        e = LNode(elem)
-        if not self.__head:
-            self.__head = e
-        else:
-            e.next = self.__head
-            self.__head = e
+        self.__head = LNode(elem, self.__head)
 
     def pop(self):
         """出栈，删除栈顶数据"""
@@ -44,8 +40,8 @@ class LStack():
         e = self.__head
         c = 0
         while e:
-            c+=1
-            e=e.next
+            c += 1
+            e = e.next
         return c
 
     def clear(self):
@@ -54,12 +50,12 @@ class LStack():
 
     def traverse(self, fn):
         """从栈底到栈顶，依次调用fn函数"""
-        self.__traverse(print,self.__head)
+        self.__traverse(print, self.__head)
 
-    def __traverse(self,fn,elem):
+    def __traverse(self, fn, elem):
         if not elem:
             return
-        self.__traverse(fn,elem.next)
+        self.__traverse(fn, elem.next)
         fn(elem.elem)
 
 
@@ -68,32 +64,29 @@ if __name__ == '__main__':
     for j in range(10):
         s.push(j)
     s.traverse(print)
-    print('top=',s.top().elem)
+    print('top=', s.top().elem)
     s.pop()
-    print('top=',s.top().elem)
+    print('top=', s.top().elem)
     s.pop()
-    print('top=',s.top().elem)
+    print('top=', s.top().elem)
     s.push(200)
-    print('top=',s.top().elem)
-    print('size=',s.size())
-    print('is_empty=',s.is_empty())
+    print('top=', s.top().elem)
+    print('size=', s.size())
+    print('is_empty=', s.is_empty())
     sempty = LStack()
     print(sempty.is_empty())
     try:
         print(sempty.top().elem)
-    except Exception as e :
+    except Exception as e:
         print(e)
 
     try:
         print(sempty.top().elem)
-    except Exception as e :
+    except Exception as e:
         print(e)
 
     for j in range(9):
-        sempty.push(j+2)
+        sempty.push(j + 2)
     sempty.traverse(print)
     sempty.clear()
-    print('is_empty=',sempty.is_empty())
-
-
-
+    print('is_empty=', sempty.is_empty())
