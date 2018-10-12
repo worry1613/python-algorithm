@@ -3,14 +3,16 @@
 # @作者    : worry1613(549145583@qq.com)
 # GitHub  : https://github.com/worry1613
 # @CSDN   : http://blog.csdn.net/worryabout/
+from Dlinklist import DLList
 from LinkList import LList
 from lqueue import QueueError
 
 
 class Deque(object):
     def __init__(self):
-        """初始化，链表实现"""
-        self.__list = LList()
+        """初始化，双向链表实现，出队，入队时间都是O(1)"""
+        # self.__list = LList()
+        self.__list = DLList()
 
     def push_back(self,el):
         """队尾入队"""
