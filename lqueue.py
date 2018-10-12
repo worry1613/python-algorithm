@@ -89,5 +89,3 @@ if __name__ == '__main__':
         q.traverse(print)
     except Exception as e:
         print(e)
-
-
