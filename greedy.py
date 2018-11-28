@@ -73,13 +73,28 @@ Sample Output
     """
     n = 5
     jobs = [(3,6),(5,2),(8,1),(7,4),(10,9)]
-    newjobs = sorted(jobs,key=lambda x:x[0]-x[1])
+    # newjobs = sorted(jobs,key=lambda x:x[0]-x[1])                   #A-B最短优先策略
+    newjobs = sorted(jobs,key=lambda x:x[1],reverse=True)         #B加工时间最长优先策略
     ret = sum([job[0] for job in newjobs])+newjobs[-1][1]
     print([jobs.index(nj)+1 for nj in newjobs])
     print(ret)
+
+
+def min_delay():
+    """
+    https://blog.csdn.net/mmc2015/article/details/45461683
+    一堆任务，每个任务有最晚完成时间di，和需要持续的时间ti。
+    真实安排这些任务时，每个任务有真是的开始时间si和结束时间fi。称一个任务的延迟时间为fi-di。
+    目的：找一个安排任务的方案，使所有任务的总的延迟最小。
+
+    最早截止时间优先。
+    :return:
+    """
+    pass
 
 
 if __name__ == '__main__':
     # broadcast()
     # dispatcher()
     job_dispatcher()
+    # min_delay()
