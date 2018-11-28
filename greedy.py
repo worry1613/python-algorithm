@@ -104,8 +104,36 @@ def min_delay():
     print(ret)
 
 
+def multi_machine_dispatcher():
+    """
+    多机调度
+    https://blog.csdn.net/hello_yz/article/details/8794843
+    设有n个独立的作业，由m台相同的机器进行加工处理。作业i所需的处理时间为t[i]。
+    任何作业可以在任何一台机器上面加工处理，但未完工之前不允许中断处理。任何作业不能拆分成更小的作业。
+    要求给出一种作业调度方案，使所给的n个作业在尽可能短的时间内由m台机器加工处理完成。
+
+    采用最长处理时间作业优先的贪心选择策略，可以设计出解多机调度问题较好的近似算法。
+
+    最长处理时间作业优先
+    :return:
+    """
+    machines = 3
+    jobs = [16, 14, 6, 5, 4, 3, 2]
+    machinesret = [0]*machines
+    machinesd = [[] for i in  range(machines)]
+    while jobs:
+        m = max(jobs)
+        mi = machinesret.index(min(machinesret))
+        machinesd[mi]+=[m]
+        machinesret[mi] += m
+        jobs.remove(m)
+    print(machinesret)
+    print(machinesd)
+
+
 if __name__ == '__main__':
     # broadcast()
     # dispatcher()
     # job_dispatcher()
-    min_delay()
+    # min_delay()
+    multi_machine_dispatcher()
