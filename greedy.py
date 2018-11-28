@@ -89,12 +89,23 @@ def min_delay():
 
     最早截止时间优先。
     :return:
+
     """
-    pass
+    jobs=[(2,6),(3,1),(1,2)]    #(持续时间,最晚完成时间)
+    newjobs = sorted(jobs,key=lambda x:x[1])        #最早截止时间优先
+    # newjobs = sorted(jobs,key=lambda x:x[0])        #最短持续时间优先
+    ret,s,f = 0,0,0
+    for i in range(len(newjobs)):
+        s=f
+        f+=newjobs[i][0]
+        if f >newjobs[i][1]:
+            ret +=(f-newjobs[i][1])
+    print(newjobs)
+    print(ret)
 
 
 if __name__ == '__main__':
     # broadcast()
     # dispatcher()
-    job_dispatcher()
-    # min_delay()
+    # job_dispatcher()
+    min_delay()
