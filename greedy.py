@@ -72,11 +72,11 @@ Sample Output
     A-B最小优先策略,?????不知道对不对，和网上的不一样
     """
     n = 5
-    jobs = [(3,6),(5,2),(8,1),(7,4),(10,9)]
+    jobs = [(3, 6), (5, 2), (8, 1), (7, 4), (10, 9)]
     # newjobs = sorted(jobs,key=lambda x:x[0]-x[1])                   #A-B最短优先策略
-    newjobs = sorted(jobs,key=lambda x:x[1],reverse=True)         #B加工时间最长优先策略
-    ret = sum([job[0] for job in newjobs])+newjobs[-1][1]
-    print([jobs.index(nj)+1 for nj in newjobs])
+    newjobs = sorted(jobs, key=lambda x: x[1], reverse=True)  # B加工时间最长优先策略
+    ret = sum([job[0] for job in newjobs]) + newjobs[-1][1]
+    print([jobs.index(nj) + 1 for nj in newjobs])
     print(ret)
 
 
@@ -91,15 +91,15 @@ def min_delay():
     :return:
 
     """
-    jobs=[(2,6),(3,1),(1,2)]    #(持续时间,最晚完成时间)
-    newjobs = sorted(jobs,key=lambda x:x[1])        #最早截止时间优先
+    jobs = [(2, 6), (3, 1), (1, 2)]  # (持续时间,最晚完成时间)
+    newjobs = sorted(jobs, key=lambda x: x[1])  # 最早截止时间优先
     # newjobs = sorted(jobs,key=lambda x:x[0])        #最短持续时间优先
-    ret,s,f = 0,0,0
+    ret, s, f = 0, 0, 0
     for i in range(len(newjobs)):
-        s=f
-        f+=newjobs[i][0]
-        if f >newjobs[i][1]:
-            ret +=(f-newjobs[i][1])
+        s = f
+        f += newjobs[i][0]
+        if f > newjobs[i][1]:
+            ret += (f - newjobs[i][1])
     print(newjobs)
     print(ret)
 
