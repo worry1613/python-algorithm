@@ -666,26 +666,26 @@ if __name__ == '__main__':
     printlist(l1)
     printlist(l2)
 
-    print('#####swap######')
-    lempty.swap(l2)
-    l1.swap(lone)
-    l2.swap(l1)
+    # print('#####swap######')
+    # lempty.swap(l2)
+    # l1.swap(lone)
+    # l2.swap(l1)
+    #
+    # printlist(lempty)
+    # printlist(l1)
+    # printlist(l2)
 
-    printlist(lempty)
-    printlist(l1)
-    printlist(l2)
 
 
-
-    # print('#####reverse######')
+    print('#####reverse######')
     # ne = lempty.reverse()
     # nl = lone.reverse()
-    # n1 = l1.reverse()
+    n1 = l1.reverse(dg=1)
     # n2 = l2.reverse()
     #
     # printlist(ne)
     # printlist(nl)
-    # printlist(n1)
+    printlist(n1)
     # printlist(n2)
     # # printlist(l2.reverse(dg=1))
 
