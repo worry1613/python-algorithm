@@ -92,7 +92,7 @@ def min_delay():
 
     """
     jobs = [(2, 6), (3, 1), (1, 2)]  # (持续时间,最晚完成时间)
-    newjobs = sorted(jobs, key=lambda x: x[1])  # 最早截止时间优先
+    newjobs = sorted(jobs, key=lambda x: x[1])  # 最早完成时间优先
     # newjobs = sorted(jobs,key=lambda x:x[0])        #最短持续时间优先
     ret, s, f = 0, 0, 0
     for i in range(len(newjobs)):
@@ -120,7 +120,7 @@ def multi_machine_dispatcher():
     machines = 3
     jobs = [16, 14, 6, 5, 4, 3, 2]
     machinesret = [0]*machines
-    machinesd = [[] for i in  range(machines)]
+    machinesd = [[] for _ in range(machines)]
     while jobs:
         m = max(jobs)
         mi = machinesret.index(min(machinesret))
@@ -131,9 +131,51 @@ def multi_machine_dispatcher():
     print(machinesd)
 
 
+def min_delay2():
+    """
+    https://bbs.csdn.net/topics/392290483
+    总工件流水时间最小单机调度问题
+    具体描述为20个工件需要在一台机器上加工完成，所有工件均在0时刻到达，其加工过程不可中断，且要求在其交货期前加工完成，
+    各个工件的加工时间和交货期的数据如下表1所示。在这批工件加工过程中需要对这台设备进行两次预防性维护，每次设备维护的时长为1。
+    表1：工件加工时间和交货期数据
+    序号1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+    加工时间1 3 3 3 3 3 3 4 4 4 4 4 5 5 5 6 6 6 7 7
+    交货日期93 93 31 93 93 62 93 93 93 93 93 93 93 93 93 40 60 93 93 93
+
+    子问题1.1：若设备预防性维护计划的开始时间分别设为：s1=29和s2=59，要求以总工件流水时间最小化为目标函数，求得上述工件的最优调度序列；
+    子问题1.2：若设备预防性维护计划的开始时间分别设为：s1∈[25,35]和s2∈[55,65]，要求以总工件流水时间最小化为目标函数，
+    求得上述工件的最优调度序列以及设备维护计划的最优开始时间，即和的最优值。
+    提示：
+    1）工件流水时间=等待时间+加工时间；
+    2）若某一工件不能在设备维护开始前加工完成，则需要等待设备维护后才开始加工。
+    :return:
+    """
+    pass
+
+
+def job_dispatcher_discipline():
+    """
+    https://blog.csdn.net/WSYW126/article/details/51586443
+    带惩罚的任务调度问题：
+    单处理器上带截止时间和惩罚的单位时间任务调度问题有以下输入：
+    1、n个单位时间任务的集合S={a1,a2,……,an}；
+    2、n个整数截止时间d1,d2,……,dn，每个di满足1<=di<=n，我们期望任务ai在时间di之前完成。
+    3、n个非负权重或者惩罚w1,w2,……,wn，若任务ai在时间di之前没有完成，我们就会受到wi这么多的惩罚，如果任务在截止时间之前完成，则不会受到惩罚。
+    （单位时间任务是严格需要一个时间单位来完成的作业）
+    在算法中我们定义延迟：如果方案中一个任务在截止时间后完成。都则就是提前。
+    提前优先形式：将提前的任务都置于延迟任务之前。
+    调度方案有规范形式：提前任务都在延迟任务之前，且提前任务按截止时间单调递增的顺序排列。
+
+    :return:
+    """
+    pass
+
+
 if __name__ == '__main__':
     # broadcast()
     # dispatcher()
     # job_dispatcher()
     # min_delay()
     multi_machine_dispatcher()
+    min_delay2()
+    job_dispatcher_discipline()
