@@ -171,6 +171,17 @@ def job_dispatcher_discipline():
     pass
 
 
+def tsp():
+    """
+    https://blog.csdn.net/DDelphine/article/details/51945265
+    TSP问题
+    旅行推销员问题（英语：Travelling salesman problem, TSP）是这样一个问题：给定一系列城市和每对城市之间的距离，
+    求解访问每一座城市一次并回到起始城市的最短回路。它是组合优化中的一个NP困难问题，在运筹学和理论计算机科学中非常重要。
+    :return:
+    """
+    pass
+
+
 if __name__ == '__main__':
     # broadcast()
     # dispatcher()
@@ -179,3 +190,4 @@ if __name__ == '__main__':
     multi_machine_dispatcher()
     min_delay2()
     job_dispatcher_discipline()
+    tsp()
