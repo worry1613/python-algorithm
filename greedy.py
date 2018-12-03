@@ -237,9 +237,10 @@ def bigint():
     # 随机生成N个整数
     s = random.sample(range(3000), l)
     print(s)
-    s = sorted(list(map(str, s)),reverse=True)
+    s = sorted(list(map(str, s)), reverse=True)
     print(s)
     print(''.join(s))
+
 
 def nm():
     """
@@ -268,14 +269,41 @@ def nm():
             pass
     array = []
     for c in range(col):
-        a = random.sample(range(3000),row)
+        a = random.sample(range(3000), row)
         array.append(a)
     print(array)
     ret = 0
     for c in range(col):
-        ret+=max(array[c])
+        ret += max(array[c])
         print(ret)
     print(ret)
+
+
+def change():
+    """
+    [找零钱问题]假如老板要找给我99元钱，他有上面的面值分别为100，50，20，10，5，1的纸币，为了找给我最少的纸币数，
+    那么他是不是该这样找呢，先看看该找多少个25分的，诶99／25＝3，好像是3个，要是4个的话，
+    我们还得再给老板一个1分的，我不干，那么老板只能给我3个25分的拉，由于还少给我24，所以还得给我2个10分的和4个1分。
+    :return:
+    """
+    while True:
+        money = input('请输找零钱的钱数:')
+        try:
+            money = int(money)
+            break
+        except Exception as e:
+            pass
+    yuan = [100,50,20,10,5,1]
+    ret = {}
+    for y in yuan:
+        z = money // y
+        money = money%y
+        if z:
+            ret[y] = z
+    print(ret)
+    print(sum(list(ret.values())))
+
+
 
 if __name__ == '__main__':
     # broadcast()
@@ -288,4 +316,5 @@ if __name__ == '__main__':
     # tsp()
     # playcard()
     # bigint()
-    nm()
+    # nm()
+    change()
