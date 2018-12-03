@@ -4,6 +4,7 @@
 # GitHub  : https://github.com/worry1613
 # @CSDN   : http://blog.csdn.net/worryabout/
 # 贪心算法
+import random
 
 
 def broadcast():
@@ -119,12 +120,12 @@ def multi_machine_dispatcher():
     """
     machines = 3
     jobs = [16, 14, 6, 5, 4, 3, 2]
-    machinesret = [0]*machines
+    machinesret = [0] * machines
     machinesd = [[] for _ in range(machines)]
     while jobs:
         m = max(jobs)
         mi = machinesret.index(min(machinesret))
-        machinesd[mi]+=[m]
+        machinesd[mi] += [m]
         machinesret[mi] += m
         jobs.remove(m)
     print(machinesret)
@@ -182,12 +183,47 @@ def tsp():
     pass
 
 
+def playcard():
+    """
+    ［均分纸牌］有N堆纸牌，编号分别为1，2，…，n。每堆上有若干张,但纸牌总数必为n的倍数.可以在任一堆上取若干张纸牌,然后移动。
+    移牌的规则为：在编号为1上取的纸牌，只能移到编号为2的堆上；在编号为n的堆上取的纸牌，只能移到编号为n-1的堆上；其他堆上取的纸牌，
+    可以移到相邻左边或右边的堆上。现在要求找出一种移动方法，用最少的移动次数使每堆上纸牌数都一样多。
+    例如：n=4，4堆纸牌分别为：① 9 ② 8 ③ 17 ④ 6 移动三次可以达到目的：从③取4张牌放到④ 再从③区3张放到②然后从②去1张放到①。
+    输入输出样例：4
+    9 8 17 6
+    屏幕显示：3
+    :return:
+    """
+    while True:
+        l = input('请输入N堆纸牌的N:')
+        try:
+            l = int(l)
+            break
+        except Exception as e:
+            pass
+    # 随机生成N堆纸牌
+    s = random.sample(range(30), l)
+    mx = max(s)
+    s[s.index(mx)] -= sum(s) % l
+    print(s)
+    avg = int(sum(s) / l)
+    ret = 0
+    for i in range(len(s)):
+        if s[i] != avg:
+            s[i + 1] = s[i] + s[i + 1] - avg
+            s[i] = avg
+            ret += 1
+    print(ret)
+    print(s)
+
+
 if __name__ == '__main__':
     # broadcast()
     # dispatcher()
     # job_dispatcher()
     # min_delay()
-    multi_machine_dispatcher()
-    min_delay2()
-    job_dispatcher_discipline()
-    tsp()
+    # multi_machine_dispatcher()
+    # min_delay2()
+    # job_dispatcher_discipline()
+    # tsp()
+    playcard()
