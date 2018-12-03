@@ -241,6 +241,41 @@ def bigint():
     print(s)
     print(''.join(s))
 
+def nm():
+    """
+    在N行M列的正整数矩阵中，要求从每行中选出1个数，
+    使得选出的总共N个数的和最大。
+    输入：
+    第一行两个正整数N和M，用空格隔开，表示行数和列数
+    第2行到第N+1行，每行M个用空格隔开的整数 ，表示矩阵
+    输出
+    最大总和
+    :return:
+    """
+    while True:
+        col = input('请输入矩阵行数:')
+        try:
+            col = int(col)
+            break
+        except Exception as e:
+            pass
+    while True:
+        row = input('请输入矩阵列数:')
+        try:
+            row = int(row)
+            break
+        except Exception as e:
+            pass
+    array = []
+    for c in range(col):
+        a = random.sample(range(3000),row)
+        array.append(a)
+    print(array)
+    ret = 0
+    for c in range(col):
+        ret+=max(array[c])
+        print(ret)
+    print(ret)
 
 if __name__ == '__main__':
     # broadcast()
@@ -252,4 +287,5 @@ if __name__ == '__main__':
     # job_dispatcher_discipline()
     # tsp()
     # playcard()
-    bigint()
+    # bigint()
+    nm()
