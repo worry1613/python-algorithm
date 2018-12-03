@@ -217,6 +217,31 @@ def playcard():
     print(s)
 
 
+def bigint():
+    """
+    ［最大整数］设有n个正整数，将它们连接成一排，组成一个最大的多位整数。
+    例如：n=3时，3个整数13，312，343，连成的最大整数为34331213。
+    又如：n=4时，4个整数7，13，4，246，连成的最大整数为7424613。
+    输入：n
+    N个数
+    输出：连成的多位数
+    :return:
+    """
+    while True:
+        l = input('请输入N个整数的N:')
+        try:
+            l = int(l)
+            break
+        except Exception as e:
+            pass
+    # 随机生成N个整数
+    s = random.sample(range(3000), l)
+    print(s)
+    s = sorted(list(map(str, s)),reverse=True)
+    print(s)
+    print(''.join(s))
+
+
 if __name__ == '__main__':
     # broadcast()
     # dispatcher()
@@ -226,4 +251,5 @@ if __name__ == '__main__':
     # min_delay2()
     # job_dispatcher_discipline()
     # tsp()
-    playcard()
+    # playcard()
+    bigint()
